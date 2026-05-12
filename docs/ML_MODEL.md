@@ -49,9 +49,10 @@ python ml/train_sign_classifier.py \
 
 Restart Django after saving the model. The backend will load `backend/models/sign_model.joblib` by default.
 
+The training script normalizes each sample relative to the wrist and hand size. The backend applies the same normalization during inference.
+
 ## Improving accuracy
 
-- Normalize landmarks relative to the wrist and hand size before training. The backend already normalizes incoming landmarks.
 - Avoid mixing raw image models and landmark models in the same dataset.
 - Add a confidence threshold in the UI before sending text to the other user.
 - Add a "no sign" class to reduce false positives.

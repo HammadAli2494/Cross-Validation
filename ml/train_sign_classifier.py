@@ -21,6 +21,13 @@ from sklearn.preprocessing import StandardScaler
 FEATURE_COUNT = 63
 
 
+def normalize_flat_landmarks(values):
+    landmarks = np.array(values, dtype=np.float32).reshape(21, 3)
+    landmarks = landmarks - landmarks[0]
+    scale = np.linalg.norm(landmarks[9]) or 1.0
+    return (landmarks / scale).reshape(-1)
+
+
 def load_dataset(csv_path: Path):
     labels = []
     features = []
@@ -36,7 +43,8 @@ def load_dataset(csv_path: Path):
 
         for row in reader:
             labels.append(row["label"])
-            features.append([float(row[column]) for column in feature_columns])
+            raw_features = [float(row[column]) for column in feature_columns]
+            features.append(normalize_flat_landmarks(raw_features))
 
     return np.array(features, dtype=np.float32), np.array(labels)
 
