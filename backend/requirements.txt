@@ -1,0 +1,8 @@
+Django
+channels
+daphne
+django-cors-headers
+Pillow
+numpy
+scikit-learn
+joblib
